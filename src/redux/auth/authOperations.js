@@ -29,7 +29,7 @@ export const logIn = createAsyncThunk('auth/login', async credentials => {
   try {
     const { data } = await axios.post('/users/login', credentials);
     token.set(data.token);
-    return data;
+    return console.log(data);
   } catch (error) {
     console.log(error);
   }
@@ -60,8 +60,6 @@ export const fetchCurrentUser = createAsyncThunk(
     try {
       const { data } = await axios.get('/users/current');
       return data;
-    } catch (error) {
-      // TODO: Добавить обработку ошибки error.message
-    }
+    } catch (error) {}
   }
 );

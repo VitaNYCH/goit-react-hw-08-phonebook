@@ -27,7 +27,6 @@ const authSlice = createSlice({
       state.token = null;
       state.isLoggedIn = false;
     },
-
     [authOperations.fetchCurrentUser.pending](state) {
       state.isFetchingCurrentUser = true;
     },

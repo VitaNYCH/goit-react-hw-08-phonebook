@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const HomeView = () => {
+export const PhoneBookView = () => {
   return (
     <div>
       <h1>

@@ -1,24 +1,30 @@
 import { ContactList } from 'components/ContactList';
 import { Filter } from 'components/Filter';
-// import { Container } from 'components/App/App.styled';
+import { Container } from '../../App/App.styled';
+import { Section } from '../../components/Section';
+import { Form } from '../../components/Form';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { contactsOperations } from 'redux/contacts';
-import { selectIsLoading } from 'redux/contacts/contactsSelectors';
+import * as contactsSelectors from 'redux/contacts/contactsSelectors';
 
 export function ContactsView() {
   const dispatch = useDispatch();
-  const isLoadingContacts = useSelector(selectIsLoading);
+  const isLoading = useSelector(contactsSelectors.selectIsLoading);
+  const error = useSelector(contactsSelectors.selectError);
 
   useEffect(() => dispatch(contactsOperations.fetchContacts()), [dispatch]);
 
   return (
-    <>
-      <div>
+    <Container>
+      <Section title="Phonebook">
+        <Form />
+      </Section>
+      <Section title="Contacts">
         <Filter />
-        {isLoadingContacts && <h1>Loading...</h1>}
-      </div>
-      <ContactList />
-    </>
+        {isLoading && !error && <b>Request in progress...</b>}
+        <ContactList />
+      </Section>
+    </Container>
   );
 }
