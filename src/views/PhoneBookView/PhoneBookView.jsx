@@ -1,10 +1,9 @@
 import React from 'react';
-
-export const PhoneBookView = () => {
+ const PhoneBookView = () => {
   return (
     <div>
       <h1>
-        Приветственная страница нашего сервиса{' '}
+        Welcome to your PhoneBook
         <span role="img" aria-label="Иконка приветствия">
           💁‍♀️
         </span>
@@ -12,3 +11,6 @@ export const PhoneBookView = () => {
     </div>
   );
 };
+
+
+export default PhoneBookView;

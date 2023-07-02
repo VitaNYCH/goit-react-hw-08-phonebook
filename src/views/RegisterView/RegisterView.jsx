@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { authOperations } from 'redux/auth';
+import { register } from 'redux/auth/authOperations';
 
-export function RegisterView() {
+function RegisterView() {
   const dispatch = useDispatch();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -27,7 +27,7 @@ export function RegisterView() {
   const handleOnSubmit = e => {
     e.preventDefault();
     reset();
-    dispatch(authOperations.register({ name, email, password }));
+    dispatch(register({ name, email, password }));
   };
 
   const reset = () => {
@@ -42,8 +42,8 @@ export function RegisterView() {
       </h1>
       <form>
         <label>
-          Full Name
-          <input type="text" name="name" value={name} onChange={handleChange} />
+          Full name
+          <input type="name" name="name" value={name} onChange={handleChange} />
         </label>
         <label>
           Email address
@@ -69,3 +69,5 @@ export function RegisterView() {
     </div>
   );
 }
+
+export default RegisterView;

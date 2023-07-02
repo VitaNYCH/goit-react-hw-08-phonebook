@@ -8,10 +8,10 @@ import { fetchCurrentUser } from 'redux/auth/authOperations';
 import { Layout } from '../components/Layout';
 import { selectIsFetchingCurrentUser } from 'redux/auth/authSelectors';
 
-const PhoneBookView = lazy(() => import('../views/PhoneBookView'));
-const RegisterView = lazy(() => import('../views/RegisterView'));
-const LoginView = lazy(() => import('../views/LoginView'));
-const ContactsView = lazy(() => import('../views/ContactsView'));
+const PhoneBookView = lazy(() => import('views/PhoneBookView/PhoneBookView'));
+const RegisterView = lazy(() => import('views/RegisterView/RegisterView'));
+const LoginView = lazy(() => import('views/LoginView/LoginView'));
+const ContactsView = lazy(() => import('views/ContactsView/ContactsView'));
 
 export function App() {
   const dispatch = useDispatch();

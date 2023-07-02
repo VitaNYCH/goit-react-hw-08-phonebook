@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { contactsOperations } from 'redux/contacts';
 import * as contactsSelectors from 'redux/contacts/contactsSelectors';
 
-export function ContactsView() {
+function ContactsView() {
   const dispatch = useDispatch();
   const isLoading = useSelector(contactsSelectors.selectIsLoading);
   const error = useSelector(contactsSelectors.selectError);
@@ -28,3 +28,5 @@ export function ContactsView() {
     </Container>
   );
 }
+
+export default ContactsView;
