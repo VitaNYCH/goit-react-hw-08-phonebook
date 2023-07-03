@@ -1,6 +1,13 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { logIn } from 'redux/auth/authOperations';
+import { authOperations } from 'redux/auth';
+import {
+  LoginPage,
+  LoginForm,
+  LoginLabel,
+  LoginInput,
+  LoginButton,
+} from './LoginView.styled';
 
 function LoginView() {
   const dispatch = useDispatch();
@@ -23,7 +30,7 @@ function LoginView() {
   const handleOnSubmit = e => {
     e.preventDefault();
     reset();
-    dispatch(logIn({ email, password }));
+    dispatch(authOperations.logIn({ email, password }));
   };
 
   const reset = () => {
@@ -31,33 +38,39 @@ function LoginView() {
     setPassword('');
   };
   return (
-    <div>
-      <h1 onSubmit={handleOnSubmit} autoComplete="off">
-        Login
-      </h1>
-      <form>
-        <label>
+    <LoginPage>
+      <h1>Login</h1>
+      <LoginForm onSubmit={handleOnSubmit} autoComplete="off">
+        <LoginLabel>
           Email address
-          <input
+          <LoginInput
             type="email"
             name="email"
             value={email}
+            pattern="/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/."
+            title="Email may contain letters, numbers, an apostrophe, and must be followed by '@' domain name '.' domain suffix. For example Taras@ukr.ua, adrian@gmail.com, JacobM3rcer@hotmail.com"
+            placeholder="Enter your email ..."
+            required
             onChange={handleChange}
           />
-        </label>
+        </LoginLabel>
 
-        <label>
+        <LoginLabel>
           Password
-          <input
+          <LoginInput
             type="password"
             name="password"
             value={password}
             onChange={handleChange}
+            pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
+            title="Password must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters. For example TgeV23592, 3Greioct."
+            placeholder="Enter your password ..."
+            required
           />
-        </label>
-        <button type="submit">Submit</button>
-      </form>
-    </div>
+        </LoginLabel>
+        <LoginButton type="submit">Submit</LoginButton>
+      </LoginForm>
+    </LoginPage>
   );
 }
 

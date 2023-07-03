@@ -1,15 +1,17 @@
-import { useDispatch } from 'react-redux';
-import { logOut } from 'redux/auth/authOperations';
-import defaultAvatar from './Mouse.png';
-import { UserLoggedIn, Greeting, UserButton, Img } from './UserMenu.styled';
+import { useDispatch, useSelector } from 'react-redux';
+import { UserLoggedIn, Greeting, UserButton } from './UserMenu.styled';
+import { authOperations } from 'redux/auth';
+import { selectUserName } from 'redux/auth/authSelectors';
 export const UserMenu = () => {
+  const user = useSelector(selectUserName);
   const dispatch = useDispatch();
-  const avatar = defaultAvatar;
   return (
     <UserLoggedIn>
-      <Img scr={avatar} alt="" width="32" height="32" />
-      <Greeting>Welcome back</Greeting>
-      <UserButton type="button" onClick={() => dispatch(logOut())}>
+      <Greeting> ☎️ Welcome back, {user}</Greeting>
+      <UserButton
+        type="button"
+        onClick={() => dispatch(authOperations.logOut())}
+      >
         Log out
       </UserButton>
     </UserLoggedIn>

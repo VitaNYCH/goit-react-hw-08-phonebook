@@ -1,16 +1,16 @@
 import React from 'react';
- const PhoneBookView = () => {
+import { WelcomeTitle } from './PhoneBookView.styled';
+const PhoneBookView = () => {
   return (
     <div>
-      <h1>
+      <WelcomeTitle>
         Welcome to your PhoneBook
         <span role="img" aria-label="Иконка приветствия">
           💁‍♀️
         </span>
-      </h1>
+      </WelcomeTitle>
     </div>
   );
 };
-
 
 export default PhoneBookView;

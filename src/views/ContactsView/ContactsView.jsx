@@ -5,7 +5,7 @@ import { Section } from '../../components/Section';
 import { Form } from '../../components/Form';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { contactsOperations } from 'redux/contacts';
+import contactsOperations from '../../redux/contacts/contactsOperations';
 import * as contactsSelectors from 'redux/contacts/contactsSelectors';
 
 function ContactsView() {
@@ -13,7 +13,9 @@ function ContactsView() {
   const isLoading = useSelector(contactsSelectors.selectIsLoading);
   const error = useSelector(contactsSelectors.selectError);
 
-  useEffect(() => dispatch(contactsOperations.fetchContacts()), [dispatch]);
+  useEffect(() => {
+    dispatch(contactsOperations.fetchContacts());
+  }, [dispatch]);
 
   return (
     <Container>

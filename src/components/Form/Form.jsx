@@ -1,7 +1,12 @@
 import { useState } from 'react';
-import { FormStyle, InputLabel, FormInput, FormButton } from './Form.styled';
+import {
+  FormStyle,
+  InputLabel,
+  NewContactInput,
+  SubmitButton,
+} from './Form.styled';
 import * as contactsSelectors from 'redux/contacts/contactsSelectors';
-import { addContacts } from 'redux/contacts/contactsOperations';
+import contactsOperations from '../../redux/contacts/contactsOperations';
 import { nanoid } from 'nanoid';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -34,7 +39,9 @@ export function Form() {
       alert(`${name} is already in contacts`);
       return;
     }
-    return dispatch(addContacts({ id: nanoid(), name, number }));
+    return dispatch(
+      contactsOperations.addContacts({ id: nanoid(), name, number })
+    );
   };
 
   const reset = () => {
@@ -45,7 +52,7 @@ export function Form() {
     <FormStyle onSubmit={handelOnSubmit}>
       <InputLabel>
         Name
-        <FormInput
+        <NewContactInput
           type="text"
           name="name"
           value={name}
@@ -57,7 +64,7 @@ export function Form() {
       </InputLabel>
       <InputLabel>
         Number
-        <input
+        <NewContactInput
           type="tel"
           name="number"
           value={number}
@@ -67,7 +74,7 @@ export function Form() {
           required
         />
       </InputLabel>
-      <FormButton type="submit">Add contact</FormButton>
+      <SubmitButton type="submit">Add contact</SubmitButton>
     </FormStyle>
   );
 }

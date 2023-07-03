@@ -4,7 +4,7 @@ import axios from 'axios';
 axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
 
 // First, create the thunk
-export const fetchContacts = createAsyncThunk(
+const fetchContacts = createAsyncThunk(
   'contacts/fetchContacts',
   async (_, { rejectWithValue }) => {
     try {
@@ -16,8 +16,8 @@ export const fetchContacts = createAsyncThunk(
   }
 );
 
-export const addContacts = createAsyncThunk(
-  'tasks/addTask',
+const addContacts = createAsyncThunk(
+  'contacts/addTask',
   async ({ id, name, number }, { rejectWithValue }) => {
     try {
       const response = await axios.post('/contacts', { id, name, number });
@@ -28,7 +28,7 @@ export const addContacts = createAsyncThunk(
   }
 );
 
-export const removeContacts = createAsyncThunk(
+const removeContacts = createAsyncThunk(
   'contacts/deleteContacts',
   async (contactId, { rejectWithValue }) => {
     try {
@@ -39,3 +39,9 @@ export const removeContacts = createAsyncThunk(
     }
   }
 );
+const operationsOfContacts = {
+  fetchContacts,
+  addContacts,
+  removeContacts,
+};
+export default operationsOfContacts;

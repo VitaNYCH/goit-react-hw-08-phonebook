@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-axios.defaults.baseURL = 'https://connections-api.herokuapp.com/';
+axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
 
 const token = {
   set(token) {
@@ -13,9 +13,25 @@ const token = {
 };
 
 // user sign up
-export const register = createAsyncThunk('auth/register', async credentials => {
+const register = createAsyncThunk(
+  'auth/register',
+  async (credentials, thunkAPI) => {
+    try {
+      const response = await axios.post('/users/signup', credentials);
+
+      token.set(response.data.token);
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+// user log in
+
+const logIn = createAsyncThunk('auth/login', async credentials => {
   try {
-    const { data } = await axios.post('/users/signup', credentials);
+    const { data } = await axios.post('/users/login', credentials);
     token.set(data.token);
     return data;
   } catch (error) {
@@ -23,19 +39,7 @@ export const register = createAsyncThunk('auth/register', async credentials => {
   }
 });
 
-// user log in
-
-export const logIn = createAsyncThunk('auth/login', async credentials => {
-  try {
-    const { data } = await axios.post('/users/login', credentials);
-    token.set(data.token);
-    return console.log(data);
-  } catch (error) {
-    console.log(error);
-  }
-});
-
-export const logOut = createAsyncThunk('auth/logout', async () => {
+const logOut = createAsyncThunk('auth/logout', async () => {
   try {
     await axios.post('/users/logout');
     token.unset();
@@ -44,15 +48,13 @@ export const logOut = createAsyncThunk('auth/logout', async () => {
   }
 });
 
-export const fetchCurrentUser = createAsyncThunk(
+const fetchCurrentUser = createAsyncThunk(
   'auth/refresh',
   async (_, thunkAPI) => {
     const state = thunkAPI.getState();
     const persistedToken = state.auth.token;
-    console.log(persistedToken);
 
     if (persistedToken === null) {
-      console.log('Токена нет, уходим из fetchCurrentUser');
       return thunkAPI.rejectWithValue();
     }
 
@@ -63,3 +65,12 @@ export const fetchCurrentUser = createAsyncThunk(
     } catch (error) {}
   }
 );
+
+const operations = {
+  register,
+  logOut,
+  logIn,
+  fetchCurrentUser,
+};
+
+export default operations;
